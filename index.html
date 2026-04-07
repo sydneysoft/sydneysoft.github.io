@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sydney Soft — Bot Development</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #5f9ea0;
+    --teal-light: #8bbcbe;
+    --teal-dark: #3d7274;
+    --teal-pale: #d4e9ea;
+    --teal-bg: #e8f4f5;
+    --ink: #0f2527;
+    --ink-soft: #2a4a4d;
+    --white: #f7fbfb;
+    --accent: #c9e8e9;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+background: var(–white);
+color: var(–ink);
+font-family: ‘DM Mono’, monospace;
+overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1.2rem 2.5rem;
+background: rgba(247,251,251,0.88);
+backdrop-filter: blur(14px);
+border-bottom: 1px solid var(–teal-pale);
+}
+
+.nav-logo {
+display: flex;
+align-items: center;
+gap: 0.7rem;
+text-decoration: none;
+color: var(–ink);
+}
+
+.nav-logo svg { width: 32px; height: 32px; }
+
+.nav-logo-text {
+font-family: ‘DM Serif Display’, serif;
+font-size: 1.2rem;
+letter-spacing: 0.05em;
+}
+
+.nav-links {
+display: flex;
+gap: 2rem;
+list-style: none;
+}
+
+.nav-links a {
+text-decoration: none;
+color: var(–ink-soft);
+font-size: 0.75rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(–teal-dark); }
+
+.nav-cta {
+background: var(–teal);
+color: var(–white) !important;
+padding: 0.5rem 1.2rem;
+border-radius: 2px;
+transition: background 0.2s !important;
+}
+.nav-cta:hover { background: var(–teal-dark) !important; color: var(–white) !important; }
+
+/* HERO */
+.hero {
+min-height: 100vh;
+display: grid;
+grid-template-columns: 1fr 1fr;
+align-items: center;
+padding: 6rem 2.5rem 4rem;
+gap: 4rem;
+position: relative;
+overflow: hidden;
+}
+
+.hero::before {
+content: ‘’;
+position: absolute;
+top: -10%;
+right: -5%;
+width: 55%;
+height: 120%;
+background: radial-gradient(ellipse at center, var(–teal-bg) 0%, transparent 70%);
+pointer-events: none;
+}
+
+.hero-badge {
+display: inline-block;
+font-size: 0.7rem;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: var(–teal-dark);
+border: 1px solid var(–teal-light);
+padding: 0.35rem 0.8rem;
+border-radius: 2px;
+margin-bottom: 1.8rem;
+animation: fadeUp 0.6s ease both;
+}
+
+.hero h1 {
+font-family: ‘DM Serif Display’, serif;
+font-size: clamp(2.8rem, 5vw, 4.5rem);
+line-height: 1.1;
+color: var(–ink);
+margin-bottom: 1.5rem;
+animation: fadeUp 0.6s 0.1s ease both;
+}
+
+.hero h1 em {
+font-style: italic;
+color: var(–teal);
+}
+
+.hero-desc {
+font-size: 0.9rem;
+line-height: 1.8;
+color: var(–ink-soft);
+max-width: 440px;
+margin-bottom: 2.5rem;
+animation: fadeUp 0.6s 0.2s ease both;
+}
+
+.hero-actions {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+animation: fadeUp 0.6s 0.3s ease both;
+}
+
+.btn-primary {
+background: var(–teal);
+color: var(–white);
+border: none;
+padding: 0.85rem 2rem;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.8rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+cursor: pointer;
+border-radius: 2px;
+text-decoration: none;
+transition: background 0.2s, transform 0.15s;
+display: inline-block;
+}
+.btn-primary:hover { background: var(–teal-dark); transform: translateY(-2px); }
+
+.btn-ghost {
+background: transparent;
+color: var(–teal-dark);
+border: 1.5px solid var(–teal-light);
+padding: 0.85rem 2rem;
+font-family: ‘DM Mono’, monospace;
+font-size: 0.8rem;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+cursor: pointer;
+border-radius: 2px;
+text-decoration: none;
+transition: border-color 0.2s, background 0.2s, transform 0.15s;
+display: inline-block;
+}
+.btn-ghost:hover { border-color: var(–teal); background: var(–teal-bg); transform: translateY(-2px); }
+
+/* Hero visual */
+.hero-visual {
+display: flex;
+justify-content: center;
+align-items: center;
+animation: fadeUp 0.8s 0.2s ease both;
+position: relative;
+}
+
+.chat-mockup {
+background: var(–ink);
+border-radius: 18px;
+padding: 1.5rem;
+width: 100%;
+max-width: 320px;
+box-shadow: 0 30px 80px rgba(15,37,39,0.18), 0 4px 20px rgba(95,158,160,0.15);
+position: relative;
+}
+
+.chat-header {
+display: flex;
+align-items: center;
+gap: 0.7rem;
+padding-bottom: 1rem;
+border-bottom: 1px solid rgba(255,255,255,0.08);
+margin-bottom: 1rem;
+}
+
+.chat-avatar {
+width: 36px; height: 36px;
+border-radius: 50%;
+background: linear-gradient(135deg, var(–teal), var(–teal-dark));
+display: flex; align-items: center; justify-content: center;
+font-size: 0.9rem;
+}
+
+.chat-name { color: #fff; font-size: 0.8rem; font-weight: 500; }
+.chat-status { color: var(–teal-light); font-size: 0.65rem; }
+
+.chat-bubble {
+border-radius: 12px 12px 12px 2px;
+padding: 0.6rem 0.9rem;
+margin-bottom: 0.6rem;
+font-size: 0.75rem;
+line-height: 1.5;
+max-width: 85%;
+opacity: 0;
+animation: bubbleIn 0.4s ease forwards;
+}
+
+.bubble-bot {
+background: rgba(95,158,160,0.2);
+color: var(–teal-pale);
+border-radius: 12px 12px 12px 2px;
+}
+
+.bubble-user {
+background: var(–teal);
+color: #fff;
+margin-left: auto;
+border-radius: 12px 12px 2px 12px;
+}
+
+.bubble-1 { animation-delay: 0.8s; }
+.bubble-2 { animation-delay: 1.4s; }
+.bubble-3 { animation-delay: 2.0s; }
+.bubble-4 { animation-delay: 2.8s; }
+
+.typing {
+display: flex; gap: 4px; align-items: center;
+padding: 0.7rem 0.9rem;
+opacity: 0;
+animation: bubbleIn 0.4s 3.6s ease forwards;
+}
+
+.typing span {
+width: 6px; height: 6px;
+background: var(–teal-light);
+border-radius: 50%;
+animation: bounce 1.2s 3.6s infinite;
+}
+.typing span:nth-child(2) { animation-delay: 3.8s; }
+.typing span:nth-child(3) { animation-delay: 4.0s; }
+
+@keyframes bounce {
+0%, 60%, 100% { transform: translateY(0); }
+30% { transform: translateY(-5px); }
+}
+
+@keyframes bubbleIn {
+from { opacity: 0; transform: translateY(8px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.platform-tags {
+display: flex;
+gap: 0.5rem;
+margin-top: 1.2rem;
+}
+
+.platform-tag {
+display: flex;
+align-items: center;
+gap: 0.4rem;
+padding: 0.3rem 0.7rem;
+border-radius: 20px;
+font-size: 0.65rem;
+font-weight: 500;
+letter-spacing: 0.05em;
+}
+
+.tag-telegram { background: rgba(40,167,218,0.15); color: #29a8db; }
+.tag-whatsapp { background: rgba(37,211,102,0.15); color: #25d366; }
+
+/* SECTION BASE */
+section { padding: 6rem 2.5rem; }
+
+.section-label {
+font-size: 0.7rem;
+letter-spacing: 0.2em;
+text-transform: uppercase;
+color: var(–teal);
+margin-bottom: 0.8rem;
+}
+
+.section-title {
+font-family: ‘DM Serif Display’, serif;
+font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+line-height: 1.15;
+color: var(–ink);
+margin-bottom: 1.2rem;
+}
+
+.section-subtitle {
+font-size: 0.85rem;
+line-height: 1.8;
+color: var(–ink-soft);
+max-width: 520px;
+}
+
+/* SERVICES */
+.services {
+background: var(–ink);
+color: var(–white);
+}
+
+.services .section-label { color: var(–teal-light); }
+.services .section-title { color: var(–white); }
+.services .section-subtitle { color: rgba(255,255,255,0.6); }
+
+.services-header {
+max-width: 1100px;
+margin: 0 auto 4rem;
+}
+
+.services-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+gap: 1.5px;
+max-width: 1100px;
+margin: 0 auto;
+background: rgba(255,255,255,0.06);
+border: 1.5px solid rgba(255,255,255,0.06);
+}
+
+.service-card {
+background: var(–ink);
+padding: 2.5rem 2rem;
+transition: background 0.3s;
+cursor: default;
+}
+
+.service-card:hover { background: #1a3538; }
+
+.service-icon {
+width: 44px; height: 44px;
+background: rgba(95,158,160,0.15);
+border-radius: 8px;
+display: flex; align-items: center; justify-content: center;
+margin-bottom: 1.5rem;
+font-size: 1.3rem;
+}
+
+.service-card h3 {
+font-family: ‘DM Serif Display’, serif;
+font-size: 1.15rem;
+color: #fff;
+margin-bottom: 0.7rem;
+}
+
+.service-card p {
+font-size: 0.78rem;
+line-height: 1.7;
+color: rgba(255,255,255,0.55);
+}
+
+/* HOW IT WORKS */
+.how {
+background: var(–teal-bg);
+max-width: 100%;
+}
+
+.how-inner {
+max-width: 1100px;
+margin: 0 auto;
+}
+
+.steps {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+gap: 3rem;
+margin-top: 4rem;
+position: relative;
+}
+
+.steps::before {
+content: ‘’;
+position: absolute;
+top: 28px;
+left: 10%;
+right: 10%;
+height: 1px;
+background: var(–teal-light);
+opacity: 0.4;
+}
+
+.step {
+text-align: center;
+position: relative;
+}
+
+.step-num {
+width: 56px; height: 56px;
+border-radius: 50%;
+background: var(–white);
+border: 2px solid var(–teal-light);
+display: flex; align-items: center; justify-content: center;
+font-family: ‘DM Serif Display’, serif;
+font-size: 1.2rem;
+color: var(–teal-dark);
+margin: 0 auto 1.2rem;
+}
+
+.step h4 {
+font-family: ‘DM Serif Display’, serif;
+font-size: 1rem;
+color: var(–ink);
+margin-bottom: 0.5rem;
+}
+
+.step p {
+font-size: 0.77rem;
+line-height: 1.7;
+color: var(–ink-soft);
+}
+
+/* PLATFORMS */
+.platforms {
+max-width: 1100px;
+margin: 0 auto;
+}
+
+.platforms-inner {
+max-width: 1100px;
+margin: 0 auto;
+}
+
+.platform-cards {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+margin-top: 3rem;
+}
+
+.platform-card {
+border: 1.5px solid var(–teal-pale);
+border-radius: 4px;
+padding: 2.5rem;
+transition: border-color 0.3s, transform 0.2s;
+}
+
+.platform-card:hover { border-color: var(–teal); transform: translateY(-4px); }
+
+.platform-logo {
+font-size: 2.5rem;
+margin-bottom: 1rem;
+}
+
+.platform-card h3 {
+font-family: ‘DM Serif Display’, serif;
+font-size: 1.4rem;
+color: var(–ink);
+margin-bottom: 0.6rem;
+}
+
+.platform-card p {
+font-size: 0.8rem;
+line-height: 1.75;
+color: var(–ink-soft);
+margin-bottom: 1.2rem;
+}
+
+.feature-list {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 0.4rem;
+}
+
+.feature-list li {
+font-size: 0.75rem;
+color: var(–ink-soft);
+display: flex;
+gap: 0.6rem;
+align-items: flex-start;
+}
+
+.feature-list li::before {
+content: ‘→’;
+color: var(–teal);
+flex-shrink: 0;
+}
+
+/* CTA */
+.cta-section {
+background: var(–ink);
+text-align: center;
+padding: 8rem 2.5rem;
+position: relative;
+overflow: hidden;
+}
+
+.cta-section::before {
+content: ‘’;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 600px;
+height: 600px;
+background: radial-gradient(circle, rgba(95,158,160,0.12) 0%, transparent 60%);
+pointer-events: none;
+}
+
+.cta-section .section-label { color: var(–teal-light); }
+
+.cta-section h2 {
+font-family: ‘DM Serif Display’, serif;
+font-size: clamp(2rem, 4vw, 3.5rem);
+color: #fff;
+margin-bottom: 1.2rem;
+position: relative;
+}
+
+.cta-section p {
+font-size: 0.85rem;
+color: rgba(255,255,255,0.55);
+max-width: 440px;
+margin: 0 auto 2.5rem;
+line-height: 1.8;
+}
+
+.cta-buttons {
+display: flex;
+gap: 1rem;
+justify-content: center;
+flex-wrap: wrap;
+}
+
+/* FOOTER */
+footer {
+background: #091b1d;
+padding: 2.5rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 1rem;
+}
+
+.footer-logo {
+font-family: ‘DM Serif Display’, serif;
+font-size: 1rem;
+color: rgba(255,255,255,0.4);
+letter-spacing: 0.05em;
+}
+
+.footer-copy {
+font-size: 0.7rem;
+color: rgba(255,255,255,0.25);
+letter-spacing: 0.08em;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(20px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+.hero { grid-template-columns: 1fr; text-align: center; padding-top: 7rem; gap: 3rem; }
+.hero-desc { margin: 0 auto 2rem; }
+.hero-actions { justify-content: center; }
+.platform-cards { grid-template-columns: 1fr; }
+nav { padding: 1rem 1.5rem; }
+.nav-links { display: none; }
+.steps::before { display: none; }
+section { padding: 4rem 1.5rem; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="19" stroke="#5f9ea0" stroke-width="1.5"/>
+      <circle cx="20" cy="20" r="14" stroke="#5f9ea0" stroke-width="1" opacity="0.5"/>
+      <path d="M8 20 Q14 14 20 20 Q26 26 32 20" stroke="#5f9ea0" stroke-width="1.5" fill="none"/>
+      <path d="M20 8 Q26 14 20 20 Q14 26 20 32" stroke="#5f9ea0" stroke-width="1.5" fill="none"/>
+      <path d="M14 12 L28 12" stroke="#5f9ea0" stroke-width="1" opacity="0.4"/>
+      <path d="M11 28 L29 28" stroke="#5f9ea0" stroke-width="1" opacity="0.4"/>
+      <circle cx="26" cy="14" r="3" fill="#5f9ea0"/>
+      <path d="M24 13 L28 11" stroke="#5f9ea0" stroke-width="1.5"/>
+    </svg>
+    <span class="nav-logo-text">Sydney Soft</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#how">Process</a></li>
+    <li><a href="#platforms">Platforms</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Bot</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Bot Development Studio</div>
+    <h1>Automate your<br><em>conversations.</em><br>Scale your reach.</h1>
+    <p class="hero-desc">Sydney Soft builds intelligent bots for Telegram and WhatsApp — from customer support to sales funnels, lead capture to community management.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Start a Project</a>
+      <a href="#services" class="btn-ghost">See What We Build</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="chat-mockup">
+      <div class="chat-header">
+        <div class="chat-avatar">🤖</div>
+        <div>
+          <div class="chat-name">SupportBot</div>
+          <div class="chat-status">● online</div>
+        </div>
+      </div>
+
+```
+  <div class="chat-bubble bubble-bot bubble-1">Hey! How can I help you today? 👋</div>
+  <div class="chat-bubble bubble-user bubble-2">I need to track my order</div>
+  <div class="chat-bubble bubble-bot bubble-3">Sure! Please share your order number and I'll pull it up instantly.</div>
+  <div class="chat-bubble bubble-user bubble-4">Order #SS-4821</div>
+  <div class="typing bubble-bot" style="background:rgba(95,158,160,0.2); border-radius:12px 12px 12px 2px; width:60px;">
+    <span></span><span></span><span></span>
+  </div>
+
+  <div class="platform-tags">
+    <div class="platform-tag tag-telegram">✈ Telegram</div>
+    <div class="platform-tag tag-whatsapp">● WhatsApp</div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- SERVICES -->
+
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-label">What we build</div>
+    <h2 class="section-title">Bots that actually<br><em style="font-style:italic; color:var(--teal-light)">do things.</em></h2>
+    <p class="section-subtitle">Every bot is custom-built for your workflow — not a template, not a chatbox widget.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">💬</div>
+      <h3>Customer Support</h3>
+      <p>24/7 automated responses to FAQs, order tracking, ticket creation, and escalation to human agents.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎯</div>
+      <h3>Lead Generation</h3>
+      <p>Qualify prospects, collect contact details, and feed them directly into your CRM — all on autopilot.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🛒</div>
+      <h3>E-commerce Bots</h3>
+      <p>Catalog browsing, cart management, payment links, and order confirmation over chat.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📣</div>
+      <h3>Broadcast & CRM</h3>
+      <p>Segment your audience and send targeted campaigns, promos, and updates at the right moment.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📅</div>
+      <h3>Booking & Scheduling</h3>
+      <p>Let customers book appointments, get reminders, and reschedule — without a single phone call.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🏘️</div>
+      <h3>Community Management</h3>
+      <p>Auto-moderation, welcome flows, polls, games, and member engagement for large groups.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+
+<section class="how" id="how">
+  <div class="how-inner">
+    <div class="section-label">Our process</div>
+    <h2 class="section-title">From idea to<br>live bot in days.</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Discovery Call</h4>
+        <p>We learn your business, audience, and goals. Free 30-minute consultation.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Bot Design</h4>
+        <p>We map out conversation flows, commands, and integrations for your approval.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Development</h4>
+        <p>Our team builds and tests the bot with your real business data and workflows.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Launch & Support</h4>
+        <p>We deploy, monitor, and iterate. Ongoing support available for all clients.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+
+<section id="platforms">
+  <div class="platforms-inner">
+    <div class="section-label">Platforms</div>
+    <h2 class="section-title">Where your<br>customers already are.</h2>
+    <p class="section-subtitle">We build natively on the two most powerful messaging platforms in the world.</p>
+    <div class="platform-cards">
+      <div class="platform-card">
+        <div class="platform-logo">✈️</div>
+        <h3>Telegram</h3>
+        <p>The developer-friendly platform with powerful bot APIs, inline keyboards, file sharing, and channel broadcasting.</p>
+        <ul class="feature-list">
+          <li>Inline keyboards & menus</li>
+          <li>Payment integration</li>
+          <li>Group & channel automation</li>
+          <li>Web App (mini-apps)</li>
+          <li>Webhook & polling support</li>
+        </ul>
+      </div>
+      <div class="platform-card">
+        <div class="platform-logo">💬</div>
+        <h3>WhatsApp</h3>
+        <p>Reach 2 billion+ users on the world's most used messaging app via the official Business API.</p>
+        <ul class="feature-list">
+          <li>Official WhatsApp Business API</li>
+          <li>Template message campaigns</li>
+          <li>Rich media support</li>
+          <li>CRM integrations</li>
+          <li>Multi-agent handoff</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+
+<section class="cta-section" id="contact">
+  <div class="section-label">Ready to automate?</div>
+  <h2>Let's build your bot.</h2>
+  <p>Tell us what you need and we'll get back to you within 24 hours with a free scope and estimate.</p>
+  <div class="cta-buttons">
+    <a href="https://t.me/" class="btn-primary">Message us on Telegram</a>
+    <a href="mailto:hello@sydneysoft.com" class="btn-ghost" style="color:rgba(255,255,255,0.7); border-color:rgba(255,255,255,0.2);">hello@sydneysoft.com</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-logo">Sydney Soft</div>
+  <div class="footer-copy">© 2026 Sydney Soft. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
