@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sydney Soft — Telegram & WhatsApp Bots</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500&display=swap');
+</style>
+<style>
+  :root {
+    --cyan: #00e5ff;
+    --cyan2: #00bcd4;
+    --gray: #8a9ba8;
+    --light: #d0dde5;
+    --white: #ffffff;
+    --bg: #f0f5f7;
+    --ink: #1a2a30;
+    --ink2: #3a5060;
+    --card: #ffffff;
+  }
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+body {
+background: var(–bg);
+color: var(–ink);
+font-family: ‘Barlow’, sans-serif;
+overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+position: fixed;
+top: 0; left: 0; right: 0;
+z-index: 100;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 1rem 2.5rem;
+background: rgba(240,245,247,0.9);
+backdrop-filter: blur(16px);
+border-bottom: 1px solid rgba(0,229,255,0.15);
+}
+
+.nav-logo {
+display: flex;
+align-items: center;
+gap: 0.6rem;
+text-decoration: none;
+}
+
+.logo-icon {
+width: 32px; height: 32px;
+background: var(–ink);
+border-radius: 50%;
+display: flex; align-items: center; justify-content: center;
+font-size: 0.75rem;
+color: var(–cyan);
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 800;
+letter-spacing: -0.02em;
+}
+
+.nav-logo-text {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 1rem;
+letter-spacing: 0.12em;
+text-transform: uppercase;
+color: var(–ink);
+}
+
+.nav-logo-text span { color: var(–cyan2); }
+
+.nav-links {
+display: flex;
+gap: 2rem;
+list-style: none;
+align-items: center;
+}
+
+.nav-links a {
+text-decoration: none;
+color: var(–ink2);
+font-size: 0.78rem;
+font-weight: 500;
+letter-spacing: 0.1em;
+text-transform: uppercase;
+transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(–cyan2); }
+
+.nav-cta {
+background: var(–ink) !important;
+color: var(–cyan) !important;
+padding: 0.5rem 1.3rem;
+border-radius: 2px;
+}
+
+/* HERO */
+.hero {
+min-height: 100vh;
+display: grid;
+grid-template-columns: 1fr 1fr;
+align-items: center;
+padding: 7rem 2.5rem 4rem;
+gap: 3rem;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.hero-tag {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 0.72rem;
+font-weight: 600;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(–cyan2);
+margin-bottom: 1rem;
+opacity: 0;
+animation: fadeUp 0.5s 0.1s ease forwards;
+}
+
+.hero h1 {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 900;
+font-size: clamp(3.5rem, 6vw, 6rem);
+line-height: 0.92;
+text-transform: uppercase;
+color: var(–gray);
+margin-bottom: 1.5rem;
+opacity: 0;
+animation: fadeUp 0.5s 0.2s ease forwards;
+}
+
+.hero h1 .cyan { color: var(–cyan); }
+.hero h1 .ink { color: var(–ink); }
+
+.hero-desc {
+font-size: 0.88rem;
+line-height: 1.75;
+color: var(–ink2);
+max-width: 400px;
+margin-bottom: 2rem;
+opacity: 0;
+animation: fadeUp 0.5s 0.3s ease forwards;
+}
+
+.hero-btns {
+display: flex;
+gap: 1rem;
+flex-wrap: wrap;
+opacity: 0;
+animation: fadeUp 0.5s 0.4s ease forwards;
+}
+
+.btn-dark {
+background: var(–ink);
+color: var(–cyan);
+padding: 0.85rem 2rem;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 0.85rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+text-decoration: none;
+border-radius: 2px;
+transition: transform 0.15s, background 0.2s;
+display: inline-block;
+}
+.btn-dark:hover { background: #0d1f25; transform: translateY(-2px); }
+
+.btn-outline {
+background: transparent;
+color: var(–ink);
+border: 1.5px solid var(–light);
+padding: 0.85rem 2rem;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 0.85rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+text-decoration: none;
+border-radius: 2px;
+transition: border-color 0.2s, transform 0.15s;
+display: inline-block;
+}
+.btn-outline:hover { border-color: var(–cyan2); transform: translateY(-2px); }
+
+/* CHAT MOCKUP */
+.hero-visual {
+display: flex;
+justify-content: center;
+opacity: 0;
+animation: fadeUp 0.6s 0.3s ease forwards;
+}
+
+.phone-mockup {
+background: var(–white);
+border-radius: 20px;
+box-shadow: 0 20px 60px rgba(26,42,48,0.12), 0 4px 20px rgba(0,188,212,0.08);
+padding: 1.2rem;
+width: 100%;
+max-width: 280px;
+}
+
+.phone-header {
+display: flex;
+align-items: center;
+gap: 0.6rem;
+padding-bottom: 0.9rem;
+border-bottom: 1px solid #eef2f4;
+margin-bottom: 1rem;
+}
+
+.phone-avatar {
+width: 32px; height: 32px;
+border-radius: 50%;
+background: linear-gradient(135deg, #e8f4f5, #c5e0e3);
+display: flex; align-items: center; justify-content: center;
+font-size: 0.85rem;
+}
+
+.phone-name { font-size: 0.78rem; font-weight: 600; color: var(–ink); }
+.phone-status { font-size: 0.62rem; color: var(–cyan2); }
+
+.msg {
+margin-bottom: 0.5rem;
+opacity: 0;
+animation: fadeUp 0.3s ease forwards;
+}
+
+.msg-text {
+display: inline-block;
+padding: 0.5rem 0.8rem;
+border-radius: 10px 10px 10px 2px;
+font-size: 0.72rem;
+line-height: 1.5;
+background: #f0f5f7;
+color: var(–ink);
+max-width: 85%;
+}
+
+.msg.user { text-align: right; }
+.msg.user .msg-text {
+background: var(–ink);
+color: var(–white);
+border-radius: 10px 10px 2px 10px;
+}
+
+.msg-btns {
+display: flex;
+gap: 0.4rem;
+margin-top: 0.4rem;
+flex-wrap: wrap;
+}
+
+.msg-btn {
+padding: 0.3rem 0.7rem;
+border: 1px solid var(–cyan2);
+border-radius: 4px;
+font-size: 0.65rem;
+color: var(–cyan2);
+font-weight: 500;
+}
+
+.menu-item {
+display: flex;
+justify-content: space-between;
+align-items: baseline;
+padding: 0.3rem 0;
+border-bottom: 1px solid #f0f5f7;
+font-size: 0.7rem;
+}
+
+.menu-item-name { color: var(–ink2); }
+.menu-item-price { color: var(–cyan2); font-weight: 600; font-size: 0.72rem; }
+
+.msg1 { animation-delay: 0.8s; }
+.msg2 { animation-delay: 1.3s; }
+.msg3 { animation-delay: 1.8s; }
+.msg4 { animation-delay: 2.4s; }
+
+/* SECTION */
+.section {
+padding: 6rem 2.5rem;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.section-full {
+padding: 6rem 2.5rem;
+}
+
+.s-tag {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-size: 0.7rem;
+font-weight: 700;
+letter-spacing: 0.22em;
+text-transform: uppercase;
+color: var(–cyan2);
+margin-bottom: 0.8rem;
+}
+
+.s-title {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 900;
+font-size: clamp(2.5rem, 4vw, 4rem);
+line-height: 0.95;
+text-transform: uppercase;
+color: var(–gray);
+margin-bottom: 1rem;
+}
+
+.s-title .cyan { color: var(–cyan); }
+.s-title .ink { color: var(–ink); }
+
+.s-sub {
+font-size: 0.85rem;
+line-height: 1.75;
+color: var(–ink2);
+max-width: 480px;
+}
+
+/* FEATURES DARK SECTION */
+.features-section {
+background: var(–ink);
+padding: 6rem 2.5rem;
+}
+
+.features-inner {
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.features-section .s-tag { color: var(–cyan); }
+.features-section .s-title { color: rgba(255,255,255,0.3); }
+.features-section .s-title .cyan { color: var(–cyan); }
+.features-section .s-sub { color: rgba(255,255,255,0.45); }
+
+.features-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 0;
+margin-top: 4rem;
+border: 1px solid rgba(255,255,255,0.06);
+}
+
+.feature-card {
+padding: 2.5rem 2rem;
+border-right: 1px solid rgba(255,255,255,0.06);
+border-bottom: 1px solid rgba(255,255,255,0.06);
+transition: background 0.3s;
+}
+
+.feature-card:hover { background: rgba(0,229,255,0.04); }
+
+.f-icon {
+font-size: 1.8rem;
+margin-bottom: 1.2rem;
+display: block;
+}
+
+.feature-card h3 {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 1rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(–cyan);
+margin-bottom: 0.6rem;
+}
+
+.feature-card p {
+font-size: 0.78rem;
+line-height: 1.7;
+color: rgba(255,255,255,0.4);
+}
+
+/* PLATFORMS */
+.platforms-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 2rem;
+margin-top: 3.5rem;
+}
+
+.platform-card {
+background: var(–white);
+border-radius: 4px;
+padding: 2.5rem;
+box-shadow: 0 4px 24px rgba(26,42,48,0.06);
+transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.platform-card:hover {
+transform: translateY(-4px);
+box-shadow: 0 12px 40px rgba(26,42,48,0.1);
+}
+
+.p-logo {
+width: 48px; height: 48px;
+border-radius: 12px;
+display: flex; align-items: center; justify-content: center;
+font-size: 1.5rem;
+margin-bottom: 1.2rem;
+}
+
+.p-logo.tg { background: rgba(41,168,219,0.1); }
+.p-logo.wa { background: rgba(37,211,102,0.1); }
+
+.platform-card h3 {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 800;
+font-size: 1.5rem;
+letter-spacing: 0.05em;
+text-transform: uppercase;
+color: var(–ink);
+margin-bottom: 0.5rem;
+}
+
+.platform-card p {
+font-size: 0.8rem;
+line-height: 1.7;
+color: var(–ink2);
+margin-bottom: 1.2rem;
+}
+
+.feat-list {
+list-style: none;
+display: flex;
+flex-direction: column;
+gap: 0.35rem;
+}
+
+.feat-list li {
+font-size: 0.75rem;
+color: var(–ink2);
+display: flex;
+gap: 0.5rem;
+align-items: center;
+}
+
+.feat-list li::before {
+content: ‘’;
+width: 6px; height: 6px;
+border-radius: 50%;
+background: var(–cyan2);
+flex-shrink: 0;
+}
+
+/* PROCESS */
+.process-section {
+background: var(–white);
+padding: 6rem 2.5rem;
+}
+
+.process-inner {
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.steps-row {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 0;
+margin-top: 4rem;
+position: relative;
+}
+
+.steps-row::after {
+content: ‘’;
+position: absolute;
+top: 22px;
+left: 12%;
+right: 12%;
+height: 1px;
+background: linear-gradient(90deg, var(–cyan2), var(–light));
+}
+
+.step-item {
+text-align: center;
+padding: 0 1rem;
+position: relative;
+}
+
+.step-circle {
+width: 44px; height: 44px;
+border-radius: 50%;
+background: var(–bg);
+border: 2px solid var(–cyan2);
+display: flex; align-items: center; justify-content: center;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 800;
+font-size: 1rem;
+color: var(–cyan2);
+margin: 0 auto 1.2rem;
+position: relative;
+z-index: 1;
+background: var(–white);
+}
+
+.step-item h4 {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 0.95rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(–ink);
+margin-bottom: 0.4rem;
+}
+
+.step-item p {
+font-size: 0.75rem;
+line-height: 1.65;
+color: var(–ink2);
+}
+
+/* BOT SHOWCASE */
+.showcase-section {
+padding: 6rem 2.5rem;
+max-width: 1200px;
+margin: 0 auto;
+}
+
+.showcase-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 3rem;
+margin-top: 3.5rem;
+align-items: center;
+}
+
+.showcase-text h3 {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 900;
+font-size: 2.5rem;
+text-transform: uppercase;
+line-height: 0.95;
+color: var(–gray);
+margin-bottom: 1rem;
+}
+
+.showcase-text h3 span { color: var(–cyan); }
+
+.showcase-text p {
+font-size: 0.85rem;
+line-height: 1.75;
+color: var(–ink2);
+margin-bottom: 1.5rem;
+}
+
+.steps-mini {
+display: flex;
+flex-direction: column;
+gap: 0.7rem;
+}
+
+.step-mini {
+display: flex;
+align-items: center;
+gap: 0.8rem;
+font-size: 0.8rem;
+color: var(–ink2);
+}
+
+.step-mini-num {
+width: 24px; height: 24px;
+border-radius: 50%;
+background: var(–ink);
+color: var(–cyan);
+display: flex; align-items: center; justify-content: center;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 0.75rem;
+flex-shrink: 0;
+}
+
+.menu-mockup {
+background: var(–white);
+border-radius: 16px;
+box-shadow: 0 20px 60px rgba(26,42,48,0.1);
+overflow: hidden;
+}
+
+.menu-mockup-header {
+background: var(–bg);
+padding: 0.9rem 1.2rem;
+display: flex;
+align-items: center;
+gap: 0.6rem;
+border-bottom: 1px solid #eef2f4;
+}
+
+.menu-mockup-header .m-avatar {
+width: 28px; height: 28px;
+border-radius: 50%;
+background: #e0edf0;
+display: flex; align-items: center; justify-content: center;
+font-size: 0.75rem;
+}
+
+.m-name { font-size: 0.72rem; font-weight: 600; color: var(–ink); }
+.m-status { font-size: 0.6rem; color: var(–cyan2); }
+
+.menu-mockup-body { padding: 1rem 1.2rem; }
+
+.menu-section-title {
+font-size: 0.7rem;
+font-weight: 600;
+color: var(–ink2);
+margin-bottom: 0.6rem;
+display: flex;
+align-items: center;
+gap: 0.3rem;
+}
+
+.menu-row {
+display: flex;
+justify-content: space-between;
+padding: 0.45rem 0;
+border-bottom: 1px solid #f5f8f9;
+}
+
+.menu-row:last-child { border-bottom: none; }
+
+.menu-row-left { font-size: 0.72rem; color: var(–ink); }
+.menu-row-sub { font-size: 0.62rem; color: var(–gray); margin-top: 1px; }
+.menu-row-price { font-size: 0.75rem; font-weight: 600; color: var(–cyan2); }
+
+.menu-back-btn {
+margin-top: 0.8rem;
+width: 100%;
+padding: 0.5rem;
+border: 1px solid #eef2f4;
+border-radius: 6px;
+text-align: center;
+font-size: 0.68rem;
+color: var(–ink2);
+}
+
+/* CTA */
+.cta-section {
+background: var(–ink);
+padding: 8rem 2.5rem;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+
+.cta-section::before {
+content: ‘’;
+position: absolute;
+top: -50%;
+left: 50%;
+transform: translateX(-50%);
+width: 800px;
+height: 800px;
+background: radial-gradient(circle, rgba(0,229,255,0.06) 0%, transparent 60%);
+pointer-events: none;
+}
+
+.cta-section .s-tag { color: var(–cyan); }
+
+.cta-section h2 {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 900;
+font-size: clamp(3rem, 5vw, 5.5rem);
+text-transform: uppercase;
+line-height: 0.95;
+color: rgba(255,255,255,0.2);
+margin-bottom: 1.2rem;
+}
+
+.cta-section h2 span { color: var(–cyan); }
+
+.cta-section p {
+font-size: 0.85rem;
+line-height: 1.75;
+color: rgba(255,255,255,0.4);
+max-width: 400px;
+margin: 0 auto 2.5rem;
+}
+
+.cta-btns {
+display: flex;
+gap: 1rem;
+justify-content: center;
+flex-wrap: wrap;
+}
+
+.btn-cyan {
+background: var(–cyan);
+color: var(–ink);
+padding: 0.9rem 2.2rem;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 0.85rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+text-decoration: none;
+border-radius: 2px;
+transition: transform 0.15s, opacity 0.2s;
+display: inline-block;
+}
+.btn-cyan:hover { opacity: 0.85; transform: translateY(-2px); }
+
+.btn-white-ghost {
+background: transparent;
+color: rgba(255,255,255,0.5);
+border: 1.5px solid rgba(255,255,255,0.15);
+padding: 0.9rem 2.2rem;
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 0.85rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+text-decoration: none;
+border-radius: 2px;
+transition: border-color 0.2s, color 0.2s, transform 0.15s;
+display: inline-block;
+}
+.btn-white-ghost:hover { border-color: var(–cyan); color: var(–cyan); transform: translateY(-2px); }
+
+/* FOOTER */
+footer {
+background: #0d1f25;
+padding: 2rem 2.5rem;
+display: flex;
+justify-content: space-between;
+align-items: center;
+flex-wrap: wrap;
+gap: 1rem;
+}
+
+.footer-brand {
+font-family: ‘Barlow Condensed’, sans-serif;
+font-weight: 700;
+font-size: 0.9rem;
+letter-spacing: 0.15em;
+text-transform: uppercase;
+color: rgba(255,255,255,0.3);
+}
+
+.footer-brand span { color: var(–cyan2); }
+
+.footer-copy {
+font-size: 0.68rem;
+color: rgba(255,255,255,0.2);
+letter-spacing: 0.1em;
+}
+
+/* DIVIDER */
+.divider {
+height: 1px;
+background: linear-gradient(90deg, transparent, var(–light), transparent);
+margin: 0 2.5rem;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+from { opacity: 0; transform: translateY(16px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+.hero { grid-template-columns: 1fr; padding-top: 6rem; }
+.platforms-grid { grid-template-columns: 1fr; }
+.steps-row { grid-template-columns: 1fr 1fr; gap: 2rem; }
+.steps-row::after { display: none; }
+.showcase-grid { grid-template-columns: 1fr; }
+nav { padding: 0.8rem 1.5rem; }
+.nav-links { display: none; }
+.section { padding: 4rem 1.5rem; }
+.section-full { padding: 4rem 1.5rem; }
+.features-section { padding: 4rem 1.5rem; }
+.process-section { padding: 4rem 1.5rem; }
+.cta-section { padding: 5rem 1.5rem; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">SS</div>
+    <span class="nav-logo-text">Sydney <span>Soft</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#features">Features</a></li>
+    <li><a href="#platforms">Platforms</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact" class="nav-cta">Get a Bot →</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+
+<div style="max-width:1200px; margin:0 auto;">
+  <section class="hero">
+    <div>
+      <div class="hero-tag">Telegram & WhatsApp Bot Studio</div>
+      <h1>
+        <span class="ink">QR</span> Menus &<br>
+        <span class="cyan">Restaurant</span><br>
+        <span class="ink">Systems</span>
+      </h1>
+      <p class="hero-desc">Instant digital menu via Telegram. No app needed. Customers scan your QR code and browse your full menu in seconds.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-dark">Get your bot →</a>
+        <a href="#features" class="btn-outline">See features</a>
+      </div>
+    </div>
+
+```
+<div class="hero-visual">
+  <div class="phone-mockup">
+    <div class="phone-header">
+      <div class="phone-avatar">🍽️</div>
+      <div>
+        <div class="phone-name">Restaurant Bot</div>
+        <div class="phone-status">● online</div>
+      </div>
+    </div>
+
+    <div class="msg msg1">
+      <div class="msg-text">Welcome! 🎉 What would you like to see?</div>
+      <div class="msg-btns">
+        <div class="msg-btn">🍔 Food</div>
+        <div class="msg-btn">🥤 Drinks</div>
+        <div class="msg-btn">📍 Location</div>
+      </div>
+    </div>
+
+    <div class="msg user msg2">
+      <div class="msg-text">Food Menu</div>
+    </div>
+
+    <div class="msg msg3">
+      <div class="msg-text">
+        <div class="menu-section-title">🍔 Food Menu</div>
+        <div class="menu-item"><span class="menu-item-name">Margherita Pizza</span><span class="menu-item-price">$12</span></div>
+        <div class="menu-item"><span class="menu-item-name">Beef Burger</span><span class="menu-item-price">$13</span></div>
+        <div class="menu-item"><span class="menu-item-name">Caesar Salad</span><span class="menu-item-price">$9</span></div>
+        <div class="menu-item"><span class="menu-item-name">Pasta Carbonara</span><span class="menu-item-price">$11</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+  </section>
+</div>
+
+<div class="divider"></div>
+
+<!-- FEATURES -->
+
+<section class="features-section" id="features">
+  <div class="features-inner">
+    <div class="s-tag">Everything included</div>
+    <h2 class="s-title">Built for<br><span class="cyan">Restaurants</span></h2>
+    <p class="s-sub" style="color:rgba(255,255,255,0.4)">One bot. Full menu. Zero hassle. Everything your restaurant needs to go digital — without building an app.</p>
+
+```
+<div class="features-grid">
+  <div class="feature-card">
+    <span class="f-icon">📱</span>
+    <h3>Digital QR Menu</h3>
+    <p>Scan QR, open Telegram, browse instantly. Works on every phone with no app download required.</p>
+  </div>
+  <div class="feature-card">
+    <span class="f-icon">🤖</span>
+    <h3>Telegram Bot</h3>
+    <p>Interactive buttons and menus. Customers navigate your full menu with one tap — no typing needed.</p>
+  </div>
+  <div class="feature-card">
+    <span class="f-icon">⚡</span>
+    <h3>Fast Setup</h3>
+    <p>Live in minutes. Edit your menu anytime from Telegram without touching any code.</p>
+  </div>
+  <div class="feature-card">
+    <span class="f-icon">📍</span>
+    <h3>Location & Social</h3>
+    <p>Address, Instagram, and Google Maps built directly into the bot — customers find you instantly.</p>
+  </div>
+  <div class="feature-card">
+    <span class="f-icon">🌍</span>
+    <h3>Multilingual</h3>
+    <p>Serve international customers with bots in multiple languages — Ukrainian, English, and more.</p>
+  </div>
+  <div class="feature-card">
+    <span class="f-icon">📊</span>
+    <h3>Analytics</h3>
+    <p>See which menu items get the most views, peak hours, and how customers interact with your bot.</p>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- PLATFORMS -->
+
+<section class="section" id="platforms">
+  <div class="s-tag">Where we build</div>
+  <h2 class="s-title">Two <span class="cyan">platforms.</span><br><span class="ink">Billions</span> of users.</h2>
+  <p class="s-sub">We build natively on the world's two most powerful messaging platforms.</p>
+
+  <div class="platforms-grid">
+    <div class="platform-card">
+      <div class="p-logo tg">✈️</div>
+      <h3>Telegram</h3>
+      <p>The developer-friendly platform with powerful bot APIs, inline keyboards, and instant delivery — perfect for restaurant menus and customer bots.</p>
+      <ul class="feat-list">
+        <li>Inline keyboards & menus</li>
+        <li>QR code integration</li>
+        <li>Group & channel automation</li>
+        <li>Telegram Web Apps (mini-apps)</li>
+        <li>Broadcast to subscribers</li>
+      </ul>
+    </div>
+    <div class="platform-card">
+      <div class="p-logo wa">💬</div>
+      <h3>WhatsApp</h3>
+      <p>Reach 2 billion+ users on the world's most used messaging app via the official WhatsApp Business API.</p>
+      <ul class="feat-list">
+        <li>Official WhatsApp Business API</li>
+        <li>Template message campaigns</li>
+        <li>Rich media & catalogs</li>
+        <li>CRM integrations</li>
+        <li>Multi-agent handoff</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- BOT SHOWCASE -->
+
+<section class="showcase-section">
+  <div class="showcase-grid">
+    <div class="showcase-text">
+      <div class="s-tag">Bot showcase</div>
+      <h3>Telegram<br><span>Ordering Bot</span></h3>
+      <p>Your full menu inside Telegram. Customers browse and get info instantly — no app, no website, just a QR scan.</p>
+      <div class="steps-mini">
+        <div class="step-mini"><div class="step-mini-num">1</div>Customer scans QR code</div>
+        <div class="step-mini"><div class="step-mini-num">2</div>Opens Telegram bot instantly</div>
+        <div class="step-mini"><div class="step-mini-num">3</div>Browses full menu & location</div>
+      </div>
+    </div>
+    <div class="menu-mockup">
+      <div class="menu-mockup-header">
+        <div class="m-avatar">🍽️</div>
+        <div>
+          <div class="m-name">Restaurant Bot</div>
+          <div class="m-status">● online</div>
+        </div>
+      </div>
+      <div class="menu-mockup-body">
+        <div class="menu-section-title">🍔 Food Menu</div>
+        <div class="menu-row">
+          <div><div class="menu-row-left">Margherita Pizza</div><div class="menu-row-sub">Tomato · Mozzarella · Basil</div></div>
+          <div class="menu-row-price">$12</div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-row-left">Beef Burger</div><div class="menu-row-sub">200g Patty · Cheddar · Fries</div></div>
+          <div class="menu-row-price">$13</div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-row-left">Caesar Salad</div><div class="menu-row-sub">Romaine · Parmesan</div></div>
+          <div class="menu-row-price">$9</div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-row-left">Pasta Carbonara</div><div class="menu-row-sub">Spaghetti · Pancetta</div></div>
+          <div class="menu-row-price">$11</div>
+        </div>
+        <div class="menu-row">
+          <div><div class="menu-row-left">Tiramisu</div><div class="menu-row-sub">Espresso · Mascarpone</div></div>
+          <div class="menu-row-price">$6</div>
+        </div>
+        <div class="menu-back-btn">↩ Back to Main Menu</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+
+<section class="process-section" id="process">
+  <div class="process-inner">
+    <div class="s-tag">Our process</div>
+    <h2 class="s-title">Live in <span class="cyan">days,</span><br><span class="ink">not months.</span></h2>
+    <div class="steps-row">
+      <div class="step-item">
+        <div class="step-circle">1</div>
+        <h4>Discovery</h4>
+        <p>Free 30-min call to understand your menu, brand, and goals.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">2</div>
+        <h4>Design</h4>
+        <p>We map out conversation flows and menus for your approval.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">3</div>
+        <h4>Build</h4>
+        <p>Bot built and tested with your real menu and business data.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-circle">4</div>
+        <h4>Launch</h4>
+        <p>Go live with QR codes, plus ongoing support and edits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+
+<section class="cta-section" id="contact">
+  <div class="s-tag">Ready to go digital?</div>
+  <h2>Get your<br><span>bot today.</span></h2>
+  <p>Tell us about your restaurant and we'll get back within 24 hours with a free demo and quote.</p>
+  <div class="cta-btns">
+    <a href="https://t.me/sydneysoft" target="_blank" class="btn-cyan">✈ Message on Telegram</a>
+    <a href="https://wa.me/61405703379" target="_blank" class="btn-white-ghost">💬 WhatsApp +61 405 703 379</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+  <div class="footer-brand">Sydney <span>Soft</span></div>
+  <div class="footer-copy">© 2026 Sydney Soft · <a href="https://sydneysoft.github.io" style="color:rgba(255,255,255,0.3); text-decoration:none;">sydneysoft.github.io</a></div>
+</footer>
+
+</body>
+</html>
