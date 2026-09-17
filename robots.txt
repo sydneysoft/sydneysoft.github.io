@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
 Sitemap: https://sydneysoft.github.io/artist-sitemap.xml
+Sitemap: https://sydneysoft.github.io/artist-spotlights-sitemap.xml
